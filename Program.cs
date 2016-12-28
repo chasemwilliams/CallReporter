@@ -166,7 +166,7 @@ namespace CallReporter
 
             //RetrievePanelOfReporters(creds);
             //RetrieveReportingPeriods(creds);
-            //GetFilers(creds);
+            GetFilers(creds);
 
 
             Console.WriteLine("Panel of reporters retrieved, press any key to finish");
