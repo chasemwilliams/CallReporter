@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CallReporter.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="CallReporter_FFIECPublicWebService_RetrievalService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">https://cdr.ffiec.gov/public/pws/webservices/retrievalservice.asmx</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>

@@ -1,7 +1,0 @@
-C:\Users\chase\Desktop\CallReporter\CallReporter\bin\Debug\CallReporter.exe.config
-C:\Users\chase\Desktop\CallReporter\CallReporter\bin\Debug\CallReporter.exe
-C:\Users\chase\Desktop\CallReporter\CallReporter\bin\Debug\CallReporter.pdb
-C:\Users\chase\Desktop\CallReporter\CallReporter\bin\Debug\Microsoft.Web.Services3.dll
-C:\Users\chase\Desktop\CallReporter\CallReporter\obj\Debug\CallReporter.csprojResolveAssemblyReference.cache
-C:\Users\chase\Desktop\CallReporter\CallReporter\obj\Debug\CallReporter.exe
-C:\Users\chase\Desktop\CallReporter\CallReporter\obj\Debug\CallReporter.pdb
