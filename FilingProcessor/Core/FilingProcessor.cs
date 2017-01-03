@@ -354,9 +354,8 @@ namespace FilingProcessor.Core
         /// for a particular reporting period. This method should typically be called once or infrequently to obtain
         /// the complete list of banks in the PoR. Subsequently, the web clients should call RetrieveFilersSinceDate
         /// to find out the list of banks that have filed their original or amended Call Reports.
-        public static void RetrievePanelOfReporters(FilingProcessCommandArgs commandLineArgs)
+        async public void RetrievePanelOfReporters(FilingProcessCommandArgs commandLineArgs)
         {
-
             FFIECPublicWebService.ReportingDataSeriesName dsName = FFIECPublicWebService.ReportingDataSeriesName.Call;
             FFIECPublicWebService.RetrievalService proxy = new FFIECPublicWebService.RetrievalService();
             UsernameToken userToken = new UsernameToken(commandLineArgs.Credentials.UserName, commandLineArgs.Credentials.Password, PasswordOption.SendHashed);
@@ -370,6 +369,20 @@ namespace FilingProcessor.Core
             foreach (FFIECPublicWebService.ReportingFinancialInstitution reporter in reporters)
             {
                 Console.WriteLine(reporter.Name.Trim() + "|" + reporter.ID_RSSD + "|" + reporter.State + "|" + reporter.HasFiledForReportingPeriod);
+
+                var reportingInstitution = await ReportingInstitutionTable.Where(riItem => riItem.ID_RSSD == reporter.ID_RSSD).ToListAsync();
+
+                // Should be rare, but if this is a new reporting institution then add it
+                if (reportingInstitution.Count == 0)
+                {
+                    CallReporter.Model.ReportingFinancialInstitution newInstitution = new CallReporter.Model.ReportingFinancialInstitution();
+
+                    // ToDo: Assign proxy institution values to newInstitution record and then InsertAsync() it
+                    newInstitution.Address = reporter.Address;
+                    //... do for rest of properties but NOT Id or Version
+
+                    await ReportingInstitutionTable.InsertAsync(newInstitution);
+                }
             }
 
             Console.WriteLine("OK" + "Total members of POR = " + reporters.Length.ToString());
