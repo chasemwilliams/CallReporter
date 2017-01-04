@@ -21,7 +21,10 @@ namespace FilingProcessor
             if (commandLineArgs.LoadReportingInstitutions)
                 filingProcessor.LoadReportingInstitutions().Wait();
 
-            filingProcessor.ProcessFilings(commandLineArgs).Wait();
+            //I commented out the line below and wrote the line after that to test
+            //filingProcessor.ProcessFilings(commandLineArgs).Wait();
+            filingProcessor.RetrievePanelOfReporters(commandLineArgs);
+
         }
 
         static FilingProcessCommandArgs ProcessCommandLineArgs(string[] args)

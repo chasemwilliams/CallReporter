@@ -368,18 +368,27 @@ namespace FilingProcessor.Core
             Console.WriteLine("OK" + "Retrieved panel of reporters. ");
             foreach (FFIECPublicWebService.ReportingFinancialInstitution reporter in reporters)
             {
-                Console.WriteLine(reporter.Name.Trim() + "|" + reporter.ID_RSSD + "|" + reporter.State + "|" + reporter.HasFiledForReportingPeriod);
+                Console.WriteLine("Adding " + reporter.Name.Trim() + "|" + reporter.ID_RSSD + "|" + reporter.State + "|" + reporter.HasFiledForReportingPeriod);
 
                 var reportingInstitution = await ReportingInstitutionTable.Where(riItem => riItem.ID_RSSD == reporter.ID_RSSD).ToListAsync();
 
-                // Should be rare, but if this is a new reporting institution then add it
                 if (reportingInstitution.Count == 0)
                 {
                     CallReporter.Model.ReportingFinancialInstitution newInstitution = new CallReporter.Model.ReportingFinancialInstitution();
 
                     // ToDo: Assign proxy institution values to newInstitution record and then InsertAsync() it
                     newInstitution.Address = reporter.Address;
-                    //... do for rest of properties but NOT Id or Version
+                    newInstitution.City = reporter.City;
+                    newInstitution.FDICCertNumber = reporter.FDICCertNumber;
+                    newInstitution.FilingType = reporter.FilingType;
+                    newInstitution.HasFiledForReportingPeriod = reporter.HasFiledForReportingPeriod;
+                    newInstitution.ID_RSSD = reporter.ID_RSSD;
+                    newInstitution.Name = reporter.Name;
+                    newInstitution.OCCChartNumber = reporter.OCCChartNumber;
+                    newInstitution.OTSDockNumber = reporter.OTSDockNumber;
+                    newInstitution.PrimaryABARoutNumber = reporter.PrimaryABARoutNumber;
+                    newInstitution.State = reporter.State;
+                    newInstitution.ZIP = reporter.ZIP;
 
                     await ReportingInstitutionTable.InsertAsync(newInstitution);
                 }

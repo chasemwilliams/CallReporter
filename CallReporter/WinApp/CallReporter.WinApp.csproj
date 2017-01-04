@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5d72c40d-aca0-4265-a21f-8ab2a856f217}</ProjectGuid>
+    <ProjectGuid>{5D72C40D-ACA0-4265-A21F-8AB2A856F217}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinApp</RootNamespace>
@@ -229,8 +229,8 @@
     <SDKReference Include="Microsoft.VCLibs, version=12.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.WinRT81, Version=3.15.2">
-      <Name>SQLite for Windows Runtime %28Windows 8.1%29</Name>
+    <SDKReference Include="SQLite.WinRT81, Version=3.12.2">
+      <Name>SQLite for Windows Runtime %28Windows 8.1%291</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">

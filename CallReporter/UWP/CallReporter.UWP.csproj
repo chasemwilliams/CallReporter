@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{b9dc5416-0b08-4cf8-9f46-ec83ca555290}</ProjectGuid>
+    <ProjectGuid>{B9DC5416-0B08-4CF8-9F46-EC83CA555290}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UWP</RootNamespace>
@@ -139,8 +139,8 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.15.2">
-      <Name>SQLite for Universal Windows Platform %28SQLite.UWP.2015, Version=3.15.2%29</Name>
+    <SDKReference Include="SQLite.UAP.2015, Version=3.8.11.1">
+      <Name>SQLite for Universal App Platform</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

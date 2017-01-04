@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{224b2691-b32d-4b98-ba94-5a9dfde8c564}</ProjectGuid>
+    <ProjectGuid>{224B2691-B32D-4B98-BA94-5A9DFDE8C564}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinPhone81</RootNamespace>
@@ -215,8 +215,8 @@
     <SDKReference Include="Microsoft.VCLibs, version=12.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Phone</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.WP81, Version=3.15.2">
-      <Name>SQLite for Windows Phone 8.1</Name>
+    <SDKReference Include="SQLite.WP81, Version=3.12.2">
+      <Name>SQLite for Windows Phone 8.1 %28SQLite.WP81, Version=3.12.2%29</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
@@ -232,11 +232,11 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.3.3.168\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.3.3.168\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets'))" />
-    <Error Condition="!Exists('..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.1.0.0\build\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.1.0.0\build\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.targets'))" />
+    <Error Condition="!Exists('..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.1.1.1\build\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.1.1.1\build\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.targets'))" />
   </Target>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.3.168\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.168\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
-  <Import Project="..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.1.0.0\build\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.targets" Condition="Exists('..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.1.0.0\build\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.targets')" />
+  <Import Project="..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.1.1.1\build\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.targets" Condition="Exists('..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.1.1.1\build\SQLitePCLRaw.lib.e_sqlite3.v120_wp81.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
