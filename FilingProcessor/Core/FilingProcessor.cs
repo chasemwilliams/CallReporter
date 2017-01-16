@@ -66,28 +66,6 @@ namespace FilingProcessor.Core
             Console.ReadLine();
         }
 
-        public async Task LoadReportingInstitutions()
-        {
-            // ToDo: Find out how to get all 8,000 reporting institutions
-
-            CallReporter.Model.ReportingFinancialInstitution[] fetchedReportingItems = null;
-
-            foreach (CallReporter.Model.ReportingFinancialInstitution fetchedReportingItem in fetchedReportingItems)
-            {
-                // Get matching reporting institution from the records we have cached (i.e. "saved") in  our CallReporter service
-                var cachedReportingItems = ReportingInstitutionTable.Where(rptInstitution => rptInstitution.ID_RSSD == fetchedReportingItem.ID_RSSD).ToListAsync().GetAwaiter().GetResult();
-
-                // If there wasn't a matching cached reporting institution record
-                if (cachedReportingItems.Count == 0)
-                    // Use mobile service table to add new reporting institution record to our cache (i.e. database)
-                    ReportingInstitutionTable.InsertAsync(fetchedReportingItem).Wait();
-                else
-                {
-                    await UpdateAsync(ReportingInstitutionTable, cachedReportingItems[0], fetchedReportingItem);
-                }
-            }
-        }
-
         /// <summary>
         /// Private backing member for singleton
         /// </summary>
@@ -220,9 +198,9 @@ namespace FilingProcessor.Core
             }
         }
 
-        public async Task UpdateAsync(IMobileServiceTable<CallReporter.Model.ReportingFinancialInstitution> reportingInstitutionTable,
-                                      CallReporter.Model.ReportingFinancialInstitution cachedReportingItem,
-                                      CallReporter.Model.ReportingFinancialInstitution fetchedReportingItem)
+        public async Task Copy(IMobileServiceTable<CallReporter.Model.ReportingFinancialInstitution> reportingInstitutionTable,
+                                      FFIECPublicWebService.ReportingFinancialInstitution fetchedReportingItem,
+                                      CallReporter.Model.ReportingFinancialInstitution cachedReportingItem)
         {
             cachedReportingItem.Address = fetchedReportingItem.Address;
             cachedReportingItem.City = fetchedReportingItem.City;
@@ -235,9 +213,6 @@ namespace FilingProcessor.Core
             cachedReportingItem.PrimaryABARoutNumber = fetchedReportingItem.PrimaryABARoutNumber;
             cachedReportingItem.State = fetchedReportingItem.State;
             cachedReportingItem.ZIP = fetchedReportingItem.ZIP;
-
-            // Update cached record just in case something changed so our cache will be up to date
-            await reportingInstitutionTable.UpdateAsync(cachedReportingItem);
         }
 
         /// <summary>
@@ -354,7 +329,7 @@ namespace FilingProcessor.Core
         /// for a particular reporting period. This method should typically be called once or infrequently to obtain
         /// the complete list of banks in the PoR. Subsequently, the web clients should call RetrieveFilersSinceDate
         /// to find out the list of banks that have filed their original or amended Call Reports.
-        async public void RetrievePanelOfReporters(FilingProcessCommandArgs commandLineArgs)
+        async public Task LoadReportingInstitutions(FilingProcessCommandArgs commandLineArgs)
         {
             FFIECPublicWebService.ReportingDataSeriesName dsName = FFIECPublicWebService.ReportingDataSeriesName.Call;
             FFIECPublicWebService.RetrievalService proxy = new FFIECPublicWebService.RetrievalService();
@@ -377,11 +352,16 @@ namespace FilingProcessor.Core
                 {
                     CallReporter.Model.ReportingFinancialInstitution newInstitution = new CallReporter.Model.ReportingFinancialInstitution();
 
-                    // ToDo: Assign proxy institution values to newInstitution record and then InsertAsync() it
-                    newInstitution.Address = reporter.Address;
-                    //... do for rest of properties but NOT Id or Version
+                    await Copy(ReportingInstitutionTable, reporter, newInstitution);
 
                     await ReportingInstitutionTable.InsertAsync(newInstitution);
+                }
+                else
+                {
+                    await Copy(ReportingInstitutionTable, reporter, reportingInstitution[0]);
+
+                    // Update cached record just in case something changed so our cache will be up to date
+                    await ReportingInstitutionTable.UpdateAsync(reportingInstitution[0]);
                 }
             }
 
