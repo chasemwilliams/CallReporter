@@ -19,7 +19,7 @@ namespace FilingProcessor
 
             // If LoadReportingInstitutions command line arg was specified then load/update
             if (commandLineArgs.LoadReportingInstitutions)
-                filingProcessor.LoadReportingInstitutions().Wait();
+                filingProcessor.LoadReportingInstitutions(commandLineArgs).Wait();
 
             filingProcessor.LoadReportingInstitutions(commandLineArgs);
 
