@@ -66,28 +66,6 @@ namespace FilingProcessor.Core
             Console.ReadLine();
         }
 
-        public async Task LoadReportingInstitutions()
-        {
-            // ToDo: Find out how to get all 8,000 reporting institutions
-
-            CallReporter.Model.ReportingFinancialInstitution[] fetchedReportingItems = null;
-
-            foreach (CallReporter.Model.ReportingFinancialInstitution fetchedReportingItem in fetchedReportingItems)
-            {
-                // Get matching reporting institution from the records we have cached (i.e. "saved") in  our CallReporter service
-                var cachedReportingItems = ReportingInstitutionTable.Where(rptInstitution => rptInstitution.ID_RSSD == fetchedReportingItem.ID_RSSD).ToListAsync().GetAwaiter().GetResult();
-
-                // If there wasn't a matching cached reporting institution record
-                if (cachedReportingItems.Count == 0)
-                    // Use mobile service table to add new reporting institution record to our cache (i.e. database)
-                    ReportingInstitutionTable.InsertAsync(fetchedReportingItem).Wait();
-                else
-                {
-                    await UpdateAsync(ReportingInstitutionTable, cachedReportingItems[0], fetchedReportingItem);
-                }
-            }
-        }
-
         /// <summary>
         /// Private backing member for singleton
         /// </summary>
@@ -354,7 +332,7 @@ namespace FilingProcessor.Core
         /// for a particular reporting period. This method should typically be called once or infrequently to obtain
         /// the complete list of banks in the PoR. Subsequently, the web clients should call RetrieveFilersSinceDate
         /// to find out the list of banks that have filed their original or amended Call Reports.
-        async public void RetrievePanelOfReporters(FilingProcessCommandArgs commandLineArgs)
+        async public void LoadReportingInstitutions(FilingProcessCommandArgs commandLineArgs)
         {
             FFIECPublicWebService.ReportingDataSeriesName dsName = FFIECPublicWebService.ReportingDataSeriesName.Call;
             FFIECPublicWebService.RetrievalService proxy = new FFIECPublicWebService.RetrievalService();
@@ -376,7 +354,7 @@ namespace FilingProcessor.Core
                 {
                     CallReporter.Model.ReportingFinancialInstitution newInstitution = new CallReporter.Model.ReportingFinancialInstitution();
 
-                    // ToDo: Assign proxy institution values to newInstitution record and then InsertAsync() it
+                    // ToDo: Put assignment in its own method, create assignment operators
                     newInstitution.Address = reporter.Address;
                     newInstitution.City = reporter.City;
                     newInstitution.FDICCertNumber = reporter.FDICCertNumber;
@@ -391,6 +369,10 @@ namespace FilingProcessor.Core
                     newInstitution.ZIP = reporter.ZIP;
 
                     await ReportingInstitutionTable.InsertAsync(newInstitution);
+                }
+                else
+                {
+                    await UpdateAsync(ReportingInstitutionTable, reportingInstitution[0], reporter);
                 }
             }
 
